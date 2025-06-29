@@ -16,14 +16,14 @@ class Transformer(nn.Module):
         if input.dim() == 2:
             input = input.unsqueeze(0)
         
+        print('Input shape: ', input.shape)
         x = self.input(input)
-        print('Input: ', x)
+        print('Input embeddings shape: ', x.shape)
         encoder_output = self.encoder(x)
-        print('Encoder: ', encoder_output)
+        print('Encoder shape: ', encoder_output.shape)
         decoder_output = self.decoder(x, encoder_output)
-        print('Decoder: ', decoder_output)
+        print('Decoder shape: ', decoder_output.shape)
         linear_output = self.linear(decoder_output)
-        print('Linear: ', linear_output)
         print('Linear shape: ', linear_output.shape)
 
         return self.act(linear_output)

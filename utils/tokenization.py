@@ -10,6 +10,7 @@ nltk.download('stopwords')
 
 class Tokenizer():
     def __init__(self, corpus):
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.sw = stopwords.words('russian') + list(string.punctuation)
         self.morph = pymorphy3.MorphAnalyzer()
         self.d = {}
@@ -25,4 +26,4 @@ class Tokenizer():
 
 
     def __call__(self, sentence):
-        return torch.tensor([self.d[word] for word in self._preprocessing(sentence)],dtype=torch.int)
+        return torch.tensor([self.d[word] for word in self._preprocessing(sentence)],dtype=torch.int, device=self.device)
